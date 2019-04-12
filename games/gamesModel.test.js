@@ -17,8 +17,9 @@ describe('gamesModel', () => {
     describe('add handler', () => {
         it('adds a game onto the array', () => {
             const newGame = {
+                id: 3,
                 title: 'ludo',
-                genre: 'board'
+                genre: 'board',
             }
             const games = gamesModel.get();
             expect(games).toHaveLength(3);

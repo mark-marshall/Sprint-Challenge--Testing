@@ -7,15 +7,19 @@ const get = () => {
 const add = game => {
   const checkForUniqueness = checkUnique(game.title);
   if (checkForUniqueness) {
-    games.push(game);
-    return game;
+    const id = games[games.length - 1].id++;
+    const newGame = { id, ...game };
+    games.push(newGame);
+    return newGame;
   } else {
     return 'this game is not unique';
   }
 };
 
 const checkUnique = gameTitle => {
-  const filteredGames = games.filter(game => game.title.toLowerCase() === gameTitle.toLowerCase());
+  const filteredGames = games.filter(
+    game => game.title.toLowerCase() === gameTitle.toLowerCase(),
+  );
   if (filteredGames.length > 0) {
     return false;
   } else {

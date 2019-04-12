@@ -1,6 +1,8 @@
 const server = require('./server');
 const request = require('supertest');
 
+const gameSeed = require('../mockDb/gameSeed')
+
 describe('server', () => {
   describe('[GET] /games endpoint', () => {
     it('returns status code 200 when sucessfully reached', () => {
@@ -9,23 +11,7 @@ describe('server', () => {
         .expect(200);
     });
     it('returns a list of games when sucessfully reached', () => {
-      const expectedGames = JSON.stringify([
-        {
-          title: 'Pacman',
-          genre: 'Arcade',
-          releaseYear: 1980,
-        },
-        {
-          title: 'Space Invaders',
-          genre: 'Arcade',
-          releaseYear: 1978,
-        },
-        {
-          title: 'Snake',
-          genre: 'Video',
-          releaseYear: 1976,
-        },
-      ]);
+      const expectedGames = JSON.stringify(gameSeed);
       return request(server)
         .get('/games')
         .expect(expectedGames);
@@ -71,8 +57,9 @@ describe('server', () => {
       });
       it('returns a status code of 200 and the added game when a complete body is passed', () => {
         const completeBody = {
+            id: 3,
             title: 'ludo',
-            genre: 'board'
+            genre: 'board',
         }
         return request(server)
           .post('/games')
