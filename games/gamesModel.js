@@ -7,7 +7,7 @@ const get = () => {
 const add = game => {
   const checkForUniqueness = checkUnique(game.title);
   if (checkForUniqueness) {
-    const id = games[games.length - 1].id++;
+    const id = games[games.length - 1].id +1;
     const newGame = { id, ...game };
     games.push(newGame);
     return newGame;
@@ -28,7 +28,7 @@ const checkUnique = gameTitle => {
 };
 
 const findById = id => {
-  const parsedId = parseInt(id)
+  const parsedId = parseInt(id);
   const game = games.filter(game => game.id === parsedId);
   if (game.length > 0) {
     return game[0];
@@ -37,9 +37,25 @@ const findById = id => {
   }
 };
 
+const remove = id => {
+  const findGameRes = findById(id);
+  const parsedId = parseInt(id);
+  if (findGameRes.title) {
+    for (let i = 0; i < games.length; i++) {
+      if (games[i].id === parsedId) {
+        games.splice(i, 1);
+      }
+    }
+    return true;
+  } else {
+    return false;
+  }
+};
+
 module.exports = {
   games,
   get,
   add,
   findById,
+  remove,
 };

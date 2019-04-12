@@ -18,14 +18,14 @@ server.get('/games', (req, res) => {
 [GET] a valid id should be passed in the params
 */
 server.get('/games/:id', (req, res) => {
-    const { id } = req.params;
-    const game = games.findById(id)
-    if(game.title){
+  const { id } = req.params;
+  const game = games.findById(id);
+  if (game.title) {
     res.status(200).json(game);
-    } else {
-        res.status(400).json({ message: 'no game exists with this id!' })
-    }
-  });
+  } else {
+    res.status(400).json({ message: 'no game exists with this id!' });
+  }
+});
 
 /*
 [POST] a valid body must be sent with the request:
@@ -48,6 +48,19 @@ server.post('/games', (req, res) => {
     }
   } else {
     res.status(422).json({ message: 'please provide a game title and genre' });
+  }
+});
+
+/*
+[DELETE] a valid id should be passed in the params:
+*/
+server.delete('/games/:id', (req, res) => {
+  const { id } = req.params;
+  const deletedGame = games.remove(id);
+  if (deletedGame) {
+    res.status(200).json({ message: 'game successfully deleted'  });
+  } else {
+    res.status(400).json({ message: 'no game exists with this id!' });
   }
 });
 

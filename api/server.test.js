@@ -92,4 +92,25 @@ describe('server', () => {
           .expect(completeBody);
       });
   });
+
+  describe('[DELETE] /games/:id endpoint', () => {
+    it('returns status code 400 and an error message when a non-valid id is passed in the params', () => {
+        const expectedMessage = JSON.stringify({
+            message: 'no game exists with this id!',
+        })
+        return request(server)
+          .delete('/games/-1')
+          .expect(400)
+          .expect(expectedMessage)
+      });
+      it('returns status code 200 and a success message when a valid id is passed in the params', () => {
+        const expectedMessage = JSON.stringify({
+            message: 'game successfully deleted',
+        })
+        return request(server)
+          .delete('/games/1')
+          .expect(200)
+          .expect(expectedMessage)
+      });
+  });
 });
