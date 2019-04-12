@@ -15,6 +15,19 @@ server.get('/games', (req, res) => {
 });
 
 /*
+[GET] a valid id should be passed in the params
+*/
+server.get('/games/:id', (req, res) => {
+    const { id } = req.params;
+    const game = games.findById(id)
+    if(game.title){
+    res.status(200).json(game);
+    } else {
+        res.status(400).json({ message: 'no game exists with this id!' })
+    }
+  });
+
+/*
 [POST] a valid body must be sent with the request:
 {
 title: 'name', // required

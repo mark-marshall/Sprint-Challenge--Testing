@@ -14,6 +14,24 @@ describe('gamesModel', () => {
         })
     })
 
+    describe('getById handler', () => {
+        it('returns an error message when a non valid id is passed',() => {
+            const expectedMessage = 'this game does not exist'
+            const game = gamesModel.findById(-1);
+            expect(game).toBe(expectedMessage);
+        })
+        it('returns a game when a correct id is passed',() => {
+            const expectedResult = {
+                id: 1,
+                title: 'Pacman',
+                genre: 'Arcade',
+                releaseYear: 1980,
+            }
+            const game = gamesModel.findById(1);
+            expect(game).toEqual(expectedResult);
+        })
+    })
+
     describe('add handler', () => {
         it('adds a game onto the array', () => {
             const newGame = {

@@ -18,6 +18,30 @@ describe('server', () => {
     });
   });
 
+  describe('[GET] /games/:id endpoint', () => {
+    it('returns status code 400 and an error message when a non-valid id is passed in the params', () => {
+        const expectedMessage = JSON.stringify({
+            message: 'no game exists with this id!',
+        })
+        return request(server)
+          .get('/games/-1')
+          .expect(400)
+          .expect(expectedMessage)
+      });
+    it('returns status code 200 when sucessfully reached  and the correct game', () => {
+      const expectedGame = JSON.stringify({
+            id: 1,
+            title: 'Pacman',
+            genre: 'Arcade',
+            releaseYear: 1980
+      })
+      return request(server)
+        .get('/games/1')
+        .expect(200)
+        .expect(expectedGame);
+    });
+  });
+
   describe('[POST] /games endpoint', () => {
     it('returns a status code of 422 and an error message when no body is passed', () => {
       const expectedMessage = JSON.stringify({

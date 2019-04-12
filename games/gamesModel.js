@@ -27,8 +27,19 @@ const checkUnique = gameTitle => {
   }
 };
 
+const findById = id => {
+  const parsedId = parseInt(id)
+  const game = games.filter(game => game.id === parsedId);
+  if (game.length > 0) {
+    return game[0];
+  } else {
+    return 'this game does not exist';
+  }
+};
+
 module.exports = {
   games,
   get,
   add,
+  findById,
 };
