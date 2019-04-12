@@ -2,10 +2,10 @@ const server = require('./server');
 const request = require('supertest');
 
 describe('server', () => {
-  describe('[GET] / endpoint', () => {
+  describe('[GET] /games endpoint', () => {
     it('returns status code 200 when sucessfully reached', () => {
       return request(server)
-        .get('/')
+        .get('/games')
         .expect(200);
     });
     it('returns a list of games when sucessfully reached', () => {
@@ -27,8 +27,44 @@ describe('server', () => {
         },
       ]);
       return request(server)
-        .get('/')
+        .get('/games')
         .expect(expectedGames);
     });
+  });
+
+  describe('[POST] /games endpoint', () => {
+    it('returns a status code of 422 and an error message when no body is passed', () => {
+      const expectedMessage = JSON.stringify({
+        message: 'please provide a game title and genre',
+      });
+      return request(server)
+        .post('/games')
+        .expect(422)
+        .expect(expectedMessage);
+    });
+    it('returns a status code of 422 and an error message when an incomplete body is passed', () => {
+        const incompleteBody = {
+            title: 'ludo'
+        }
+        const expectedMessage = JSON.stringify({
+          message: 'please provide a game title and genre',
+        });
+        return request(server)
+          .post('/games')
+          .send(incompleteBody)
+          .expect(422)
+          .expect(expectedMessage);
+      });
+      it('returns a status code of 200 and the added game when a complete body is passed', () => {
+        const completeBody = {
+            title: 'ludo',
+            genre: 'board'
+        }
+        return request(server)
+          .post('/games')
+          .send(completeBody)
+          .expect(201)
+          .expect(completeBody);
+      });
   });
 });
