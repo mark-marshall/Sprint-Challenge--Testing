@@ -55,6 +55,20 @@ describe('server', () => {
           .expect(422)
           .expect(expectedMessage);
       });
+      it('returns a status code of 400 and an error message when a non-unique game title is passed', () => {
+        const duplicateGame = {
+            title: 'pacman',
+            genre: 'arcade',
+        }
+        const expectedMessage = JSON.stringify({
+          message: 'there is already a title for this game!',
+        });
+        return request(server)
+          .post('/games')
+          .send(duplicateGame)
+          .expect(400)
+          .expect(expectedMessage);
+      });
       it('returns a status code of 200 and the added game when a complete body is passed', () => {
         const completeBody = {
             title: 'ludo',

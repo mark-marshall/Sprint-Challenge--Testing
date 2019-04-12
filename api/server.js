@@ -22,12 +22,17 @@ genre: 'genre', // required
 releaseYear: 1980 // not required
 }
 */
-
 server.post('/games', (req, res) => {
   const game = req.body;
   if (game.title && game.genre) {
     const addedGame = games.add(game);
-    res.status(201).json(addedGame);
+    if (addedGame.title) {
+      res.status(201).json(addedGame);
+    } else {
+      res
+        .status(400)
+        .json({ message: 'there is already a title for this game!' });
+    }
   } else {
     res.status(422).json({ message: 'please provide a game title and genre' });
   }

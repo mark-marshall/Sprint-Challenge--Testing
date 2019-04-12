@@ -26,5 +26,23 @@ describe('gamesModel', () => {
             expect(games).toHaveLength(4);
             expect(games[games.length-1]).toEqual(newGame);
         })
+        it('rejects request to add a duplicated games', () => {
+            const duplicateGame = {
+                title: 'Pacman',
+                genre: 'arcade'
+            }
+            const expectedMessage = 'this game is not unique';
+            const duplicateGameResponse = gamesModel.add(duplicateGame);
+            expect(duplicateGameResponse).toBe(expectedMessage);
+        })
+        it('rejects request to add a duplicated game in different case', () => {
+            const duplicateGame = {
+                title: 'pacman',
+                genre: 'arcade'
+            }
+            const expectedMessage = 'this game is not unique';
+            const duplicateGameResponse = gamesModel.add(duplicateGame);
+            expect(duplicateGameResponse).toBe(expectedMessage);
+        })
     })
 })
