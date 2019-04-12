@@ -1,4 +1,4 @@
-# Sprint Challenge: Testing - TDD Video Games
+# Sprint Challenge: Testing - TDD Video Games:
 
 This challenge allows you to practice the concepts and techniques learned over the past week and apply them in a concrete project. This Sprint explored Testing. During this Sprint, you studied Introduction to Automated Testing, Testing React Applications & Testing Web APIs. In your challenge this week, you will demonstrate proficiency by creating an application that follows the TDD pattern to create a simple Web API using Node.js and Express.
 
@@ -25,8 +25,15 @@ In this challenge use `Test Driven Development` to build a RESTful API using Nod
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 1. In Jest, what are the differences between `describe()` and `it()` globals, and what are good uses for them?
-1. What is the point of `Test Driven Development`? What do you think about this approach?
-1. Mention three types of automated tests.
+`describe()` creates a block that groups together several related tests, these tests or, as an alias `it()s`, are these individual tests groupd by describes e.g. we might have a `describe()` for a particular endpoint, and a number of `it()s` to test individual aspects of that endpoint e.g. status on success, res on failure.
+
+
+2. What is the point of `Test Driven Development`? What do you think about this approach?
+In TDD, we write tests before we write functionality. The aim is to then make those tests pass as quickly as possible. We take one test at a time, and fix that, before writing the next one. This approach is said to produce cleaner code, the more closely fits required specifications and, with a high% of test coverage - allows more complex projects to be maintained/refactored.
+
+3. Mention three types of automated tests.
+Unit tests, Integration tests, component tests.
+
 
 ## Project Set Up
 
